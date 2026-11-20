@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COLORS — Futuristic Color Science & Design Lab</title>
+  <style>
+    :root {
+      --bg-dark: #070b19;
+      --bg-card: rgba(15, 23, 52, 0.78);
+      --border: rgba(125, 211, 252, 0.22);
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --blue-neon: #38bdf8;
+      --blue-deep: #2563eb;
+      --pink-neon: #f472b6;
+      --pink-hot: #ec4899;
+      --grad-primary: linear-gradient(135deg, var(--blue-neon), var(--pink-neon));
+      --grad-glow: radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 55%),
+                   radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.22), transparent 55%);
+      --max-w: 1160px;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      background-image: var(--grad-glow);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Navigation Menu */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 11, 25, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--pink-neon);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      border-radius: 10px;
+      padding: 0.45rem 0.7rem;
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+
+    /* Layout Sections */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    section {
+      padding-top: 4.5rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--blue-neon);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .lead {
+      color: var(--text-muted);
+      max-width: 62ch;
+      margin-bottom: 2rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 3.5rem;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero h1 span {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 52ch;
+      margin-bottom: 1.75rem;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--grad-primary);
+      color: #070b19;
+      box-shadow: 0 0 24px rgba(244, 114, 182, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 310px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .visual-caption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    /* Concepts Grid */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--pink-neon);
+      transform: translateY(-3px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.65rem;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--blue-neon);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .badge.pink {
+      background: rgba(244, 114, 182, 0.15);
+      color: var(--pink-neon);
+      border-color: rgba(244, 114, 182, 0.35);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+    }
+
+    /* Interactive Lab */
+    .lab-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .swatch-box {
+      height: 220px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      transition: background 0.15s ease;
+    }
+
+    .swatch-code {
+      background: rgba(7, 11, 25, 0.78);
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+
+    .control-group {
+      margin-bottom: 1.15rem;
+    }
+
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.92rem;
+      margin-bottom: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--pink-neon);
+      cursor: pointer;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .preset-btn {
+      background: rgba(15, 23, 52, 0.9);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--blue-neon);
+    }
+
+    /* Knowledge Check */
+    .quiz-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 780px;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+
+    .quiz-option {
+      text-align: left;
+      background: rgba(7, 11, 25, 0.7);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--pink-neon);
+    }
+
+    .quiz-feedback {
+      font-size: 0.95rem;
+      min-height: 1.5rem;
+      color: var(--blue-neon);
+      font-weight: 500;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .lab-panel,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(7, 11, 25, 0.97);
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        gap: 1rem;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="#top" class="logo">COLORS</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#spectrum">Spectrum</a></li>
+        <li><a href="#lab">Mixer Lab</a></li>
+        <li><a href="#quiz">Check</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <span class="section-tag">Interactive Visual Curriculum</span>
+        <h1>Decode Light, Pigments &amp; <span>Digital Colors</span></h1>
+        <p>Explore how wavelengths refract through prisms, how additive and subtractive models behave, and how blue-and-pink gradients shape futuristic interfaces.</p>
+        <div class="btn-row">
+          <a href="#lab" class="btn btn-primary">Launch Color Lab</a>
+          <a href="#spectrum" class="btn btn-secondary">Explore Concepts</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img
+          src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcReUrMv_rAvYnhYnHibLpOefyppDq7YppUwGWZM5ogrNzMha3gsItbNwe9_uVkI0D9ZIxwbjLB2a611gGk"
+          alt="Futuristic light streaks blending cyan, electric blue, and magenta pink"
+        />
+        <div class="visual-caption">
+          <span>Additive Light Rays</span>
+          <span>Blue · Cyan · Magenta</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="spectrum">
+      <span class="section-tag">Core Foundations</span>
+      <h2>How Color Works Across Science &amp; Screens</h2>
+      <p class="lead">From optical refraction in glass prisms to pixel channels in modern displays, color bridges physics and perception.</p>
+      <div class="grid-3">
+        <article class="card">
+          <img
+            src="https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQfkPilgxIYAebkZZFYfOjlXRsTsZcJsxkDb_fVxZlJUi2KKR4z3Y1yq7Ht_xH5fCEjoQPivkxNHjr_fhE"
+            alt="White light entering a triangular prism and splitting into red, orange, yellow, green, blue, indigo, and violet"
+          />
+          <span class="badge">Optics</span>
+          <h3>Prism Dispersion</h3>
+          <p>Shorter wavelengths like blue and violet bend more sharply than longer red wavelengths when passing through a prism.</p>
+        </article>
+
+        <article class="card">
+          <img
+            src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQh3CXvpaC6yJ69vds0ZOeEEL_4GDUzNx37rQLHXfskAgrJcHfEMp52g-snDMD7dXvIVpnrWO9zwCXy3f0"
+            alt="Circular color wheel showing radial steps of pink, magenta, violet, and blue"
+          />
+          <span class="badge pink">Color Theory</span>
+          <h3>Hue, Value &amp; Harmony</h3>
+          <p>Pairing cool blues with vibrant pinks creates high visual contrast and energetic depth in digital UI systems.</p>
+        </article>
+
+        <article class="card">
+          <img
+            src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcReUrMv_rAvYnhYnHibLpOefyppDq7YppUwGWZM5ogrNzMha3gsItbNwe9_uVkI0D9ZIxwbjLB2a611gGk"
+            alt="Glowing blue and pink light beams intersecting on a dark background"
+          />
+          <span class="badge">Digital Displays</span>
+          <h3>RGB Light Channels</h3>
+          <p>Screens combine red, green, and blue light emitters; high blue and red with moderate green yields vivid magenta-pinks.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="lab">
+      <span class="section-tag">Hands-On Simulator</span>
+      <h2>Interactive RGB &amp; Blue-Pink Blend Lab</h2>
+      <p class="lead">Adjust Red, Green, and Blue channels to inspect live HEX and RGB values.</p>
+      <div class="lab-panel">
+        <div class="swatch-box" id="swatchBox">
+          <strong id="swatchName">Cyber Magenta</strong>
+          <div class="swatch-code" id="swatchCode">#F472B6 · rgb(244, 114, 182)</div>
+        </div>
+        <div>
+          <div class="control-group">
+            <label for="redSlider"><span>Red (R)</span><span id="redVal">244</span></label>
+            <input type="range" id="redSlider" min="0" max="255" value="244" />
+          </div>
+          <div class="control-group">
+            <label for="greenSlider"><span>Green (G)</span><span id="greenVal">114</span></label>
+            <input type="range" id="greenSlider" min="0" max="255" value="114" />
+          </div>
+          <div class="control-group">
+            <label for="blueSlider"><span>Blue (B)</span><span id="blueVal">182</span></label>
+            <input type="range" id="blueSlider" min="0" max="255" value="182" />
+          </div>
+          <div class="preset-row">
+            <button type="button" class="preset-btn" data-rgb="56,189,248" data-name="Neon Sky Blue">Neon Blue</button>
+            <button type="button" class="preset-btn" data-rgb="244,114,182" data-name="Cyber Pink">Cyber Pink</button>
+            <button type="button" class="preset-btn" data-rgb="168,85,247" data-name="Blue + Pink Violet">Blue + Pink Mix</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <span class="section-tag">Quick Check</span>
+      <h2>Test Your Color Intuition</h2>
+      <div class="quiz-box">
+        <p><strong>Question:</strong> When white light passes through a glass prism, why does blue light bend more than red light?</p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-option" data-correct="true">Blue light has a shorter wavelength and experiences a higher refractive index in glass.</button>
+          <button type="button" class="quiz-option" data-correct="false">Red light travels slower inside glass than blue light.</button>
+          <button type="button" class="quiz-option" data-correct="false">Prisms only refract cool colors and reflect warm colors.</button>
+        </div>
+        <p class="quiz-feedback" id="quizFeedback"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    COLORS Educational Lab · Built with HTML, CSS &amp; JavaScript
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    const redSlider = document.getElementById("redSlider");
+    const greenSlider = document.getElementById("greenSlider");
+    const blueSlider = document.getElementById("blueSlider");
+    const redVal = document.getElementById("redVal");
+    const greenVal = document.getElementById("greenVal");
+    const blueVal = document.getElementById("blueVal");
+    const swatchBox = document.getElementById("swatchBox");
+    const swatchCode = document.getElementById("swatchCode");
+    const swatchName = document.getElementById("swatchName");
+
+    function toHex(n) {
+      return Number(n).toString(16).padStart(2, "0").toUpperCase();
+    }
+
+    function updateSwatch(customName) {
+      const r = Number(redSlider.value);
+      const g = Number(greenSlider.value);
+      const b = Number(blueSlider.value);
+
+      redVal.textContent = r;
+      greenVal.textContent = g;
+      blueVal.textContent = b;
+
+      const hex = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+      swatchBox.style.background = `rgb(${r}, ${g}, ${b})`;
+      swatchCode.textContent = `${hex} · rgb(${r}, ${g}, ${b})`;
+
+      const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      swatchBox.style.color = luminance > 145 ? "#070b19" : "#f8fafc";
+
+      if (customName) {
+        swatchName.textContent = customName;
+      } else if (b > r + 40) {
+        swatchName.textContent = "Blue-Dominant Tone";
+      } else if (r > b + 40) {
+        swatchName.textContent = "Pink / Warm-Shift Tone";
+      } else {
+        swatchName.textContent = "Balanced Violet / Mid-Tone";
+      }
+    }
+
+    [redSlider, greenSlider, blueSlider].forEach((slider) => {
+      slider.addEventListener("input", () => updateSwatch());
+    });
+
+    document.querySelectorAll(".preset-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const [r, g, b] = btn.dataset.rgb.split(",");
+        redSlider.value = r;
+        greenSlider.value = g;
+        blueSlider.value = b;
+        updateSwatch(btn.dataset.name);
+      });
+    });
+
+    updateSwatch("Cyber Pink");
+
+    const quizFeedback = document.getElementById("quizFeedback");
+    document.querySelectorAll(".quiz-option").forEach((option) => {
+      option.addEventListener("click", () => {
+        if (option.dataset.correct === "true") {
+          quizFeedback.textContent = "Correct — shorter wavelengths refract at a steeper angle in glass.";
+        } else {
+          quizFeedback.textContent = "Not quite — shorter wavelengths (blue/violet) refract more than longer wavelengths (red).";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
